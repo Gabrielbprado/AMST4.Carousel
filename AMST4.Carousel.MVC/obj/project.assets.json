@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Projects\\Jeff\\AMST4.Carousel\\AMST4.Carousel.MVC\\AMST4.Carousel.MVC.csproj",
+      "projectUniqueName": "C:\\Projects\\Jeff\\AMST4.Carousel\\AMST4.Carousel.MVC\\AMST4.Carousel.MVC.csproj",
       "projectName": "AMST4.Carousel.MVC",
-      "projectPath": "c:\\Projects\\Jeff\\AMST4.Carousel\\AMST4.Carousel.MVC\\AMST4.Carousel.MVC.csproj",
+      "projectPath": "C:\\Projects\\Jeff\\AMST4.Carousel\\AMST4.Carousel.MVC\\AMST4.Carousel.MVC.csproj",
       "packagesPath": "C:\\Users\\pc\\.nuget\\packages\\",
-      "outputPath": "c:\\Projects\\Jeff\\AMST4.Carousel\\AMST4.Carousel.MVC\\obj\\",
+      "outputPath": "C:\\Projects\\Jeff\\AMST4.Carousel\\AMST4.Carousel.MVC\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\pc\\AppData\\Roaming\\NuGet\\NuGet.Config",
