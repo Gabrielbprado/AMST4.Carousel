@@ -1,13 +1,13 @@
-﻿@model IEnumerable<AMST4.Carousel.MVC.Models.Category>
+﻿@model IEnumerable<AMST4.Carousel.MVC.Models.Product>
 
 @{
-    ViewData["Title"] = "CategoryList";
+    ViewData["Title"] = "ProductList";
 }
 
-<h1>CategoryList</h1>
+<h1>ProductList</h1>
 
 <p>
-    <a asp-action="AddCategory" class="btn btn-success">Criar Nova Categoria</a>
+    <a asp-action="AddProduct" class="btn btn-success">Criar Novo Produto</a>
 </p>
 <table class="table">
     <thead>
@@ -20,6 +20,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.IsActive)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category_Id)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CreatedBy)
@@ -39,13 +42,16 @@
             <td>
                 @Html.DisplayFor(modelItem => item.IsActive)
             </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreatedBy)
-                </td>
             <td>
-                    <a asp-controller="Category" asp-action="EditCategory" asp-route-id="@item.Id">Editar</a> |
-                    <a asp-controller="Category" asp-action="DetailsCategory" asp-route-id="@item.Id">Detalhes</a> |
-                    <a asp-controller="Category" asp-action="DeleteCategory" asp-route-id="@item.Id">Deletar</a>
+                @Html.DisplayFor(modelItem => item.Category_Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedBy)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }
