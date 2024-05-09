@@ -48,9 +48,6 @@ namespace AMST4.Carousel.MVC.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("CategoryId")
-                        .HasColumnType("TEXT");
-
                     b.Property<Guid>("Category_Id")
                         .HasColumnType("TEXT");
 
@@ -70,7 +67,7 @@ namespace AMST4.Carousel.MVC.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("Category_Id");
 
                     b.ToTable("Product");
                 });
@@ -78,12 +75,17 @@ namespace AMST4.Carousel.MVC.Migrations
             modelBuilder.Entity("AMST4.Carousel.MVC.Models.Product", b =>
                 {
                     b.HasOne("AMST4.Carousel.MVC.Models.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
+                        .WithMany("Products")
+                        .HasForeignKey("Category_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("AMST4.Carousel.MVC.Models.Category", b =>
+                {
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

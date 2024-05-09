@@ -1,6 +1,8 @@
 ﻿using AMST4.Carousel.MVC.Data;
 using AMST4.Carousel.MVC.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace AMST4.Carousel.MVC.Controllers;
 
@@ -14,24 +16,30 @@ public class ProductController : Controller
     }
 
     [HttpGet]
-    public IActionResult ProductList()
+    public async Task<IActionResult> ProductList()
     {
-        var products = _context.Product.ToList();
+        List<Product> products = await _context.Product.Include(p => p.Category).ToListAsync();
         return View(products);
     }
 
     [HttpPost]
+   
+   
     public async Task<IActionResult> AddProduct(Product product)
     {
-        product.Id = new Guid();
-        await _context.Product.AddAsync(product);
-        await _context.SaveChangesAsync();
-        return RedirectToAction("ProductList");
+        
+       var category = await _context.Category.FindAsync(product.Category_Id);
+       product.Id = Guid.NewGuid();
+       _context.Add(product);
+       await _context.SaveChangesAsync();
+       return RedirectToAction(nameof(ProductList)); 
     }
+
 
     [HttpGet]
     public IActionResult AddProduct()
     {
+        ViewBag.CategoryList = new SelectList(_context.Category, "Id", "Description");
         return View();
     }
 
