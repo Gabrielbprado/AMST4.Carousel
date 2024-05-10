@@ -39,6 +39,8 @@ public class ProductController : Controller
     [HttpGet]
     public IActionResult AddProduct()
     {
+        var hasCategories = _context.Category.Any();
+        ViewBag.HasCategories = hasCategories;
         ViewBag.CategoryList = new SelectList(_context.Category, "Id", "Description");
         return View();
     }
