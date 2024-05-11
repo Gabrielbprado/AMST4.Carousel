@@ -4,7 +4,7 @@
     ViewData["Title"] = "AddProduct";
 }
 
-<h1>Add Product</h1>
+<h1>Addicioar Produto</h1>
 
 <hr />
 <div class="row">
@@ -12,12 +12,12 @@
         <form method="post" asp-action="AddProduct">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
+                <label asp-for="Description" class="control-label">Descrição</label>
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ImageUrl" class="control-label"></label>
+                <label asp-for="ImageUrl" class="control-label">Url da Imagem</label>
                 <input asp-for="ImageUrl" class="form-control" />
                 <span asp-validation-for="ImageUrl" class="text-danger"></span>
             </div>
@@ -45,15 +45,15 @@
             </div>
 
             <br>
-                <button type="submit" class="btn btn-primary">Create</button>
+                <button type="submit" class="btn btn-primary">Criar</button>
             </div>
             }
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="ProductList">Voltar para a Lista</a>
+<div class="mt-2">
+    <a asp-action="ProductList" class="btn btn-danger">Cancelar</a>
 </div>
 
 @section Scripts {

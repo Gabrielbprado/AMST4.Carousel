@@ -1,12 +1,12 @@
 ﻿@model Category
 
 @{
-    Layout = "_Layout"; // Especifique o layout que você deseja usar
+    Layout = "_Layout"; 
 }
 
 <h1>Editar Categoria</h1>
 
-<h4>Category</h4>
+<h4>Categoria</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -14,12 +14,12 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
+                <label asp-for="Description" class="control-label">Descrição</label>
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ImageUrl" class="control-label"></label>
+                <label asp-for="ImageUrl" class="control-label">Url da Imagem</label>
                 <input asp-for="ImageUrl" class="form-control" />
                 <span asp-validation-for="ImageUrl" class="text-danger"></span>
             </div>
@@ -36,7 +36,7 @@
 </div>
 
 <div>
-    <a asp-action="CategoryList">Voltar para a Lista</a>
+    <a asp-action="CategoryList" class="btn btn-danger">Cancelar</a>
 </div>
 
 @section Scripts {

@@ -4,7 +4,7 @@
     ViewData["Title"] = "ProductList";
 }
 
-<h1>ProductList</h1>
+<h1>Produtos Cadastrados</h1>
 
 <p>
     <a asp-action="AddProduct" class="btn btn-success">Criar Novo Produto</a>
@@ -50,9 +50,9 @@
                     @Html.DisplayFor(modelItem => item.CreatedBy)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-action="EditProduct" asp-route-id="@item.Id">Editar</a> |
+                    <a asp-action="DetailsProduct" asp-route-id="@item.Id">Detalhes</a> |
+                    <a asp-action="DeleteProduct" asp-route-id="@item.Id">Deletar</a>
                 </td>
             </tr>
         }
