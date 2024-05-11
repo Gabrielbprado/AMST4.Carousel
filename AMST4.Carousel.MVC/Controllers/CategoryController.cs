@@ -20,6 +20,14 @@ public class CategoryController : Controller
         return View(categories);
     }
 
+    [HttpGet]
+    public IActionResult CategoryDetails(Guid id)
+    {
+        var category = _context.Category.FirstOrDefault(x => x.Id == id);
+        return View(category);
+    }
+    
+
     [HttpPost]
     public async Task<IActionResult> AddCategory(Category category)
     {
