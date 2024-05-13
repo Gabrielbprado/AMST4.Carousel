@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AMST4.Carousel.MVC.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240509194141_Add Product and Relation between Product and Category")]
-    partial class AddProductandRelationbetweenProductandCategory
+    [Migration("20240513193823_Relationship between Category and Product")]
+    partial class RelationshipbetweenCategoryandProduct
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,6 +39,10 @@ namespace AMST4.Carousel.MVC.Migrations
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -67,6 +71,10 @@ namespace AMST4.Carousel.MVC.Migrations
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 

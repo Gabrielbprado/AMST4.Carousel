@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AMST4.Carousel.MVC.Migrations
 {
     /// <inheritdoc />
-    public partial class AddProductandRelationbetweenProductandCategory : Migration
+    public partial class RelationshipbetweenCategoryandProduct : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,16 +18,24 @@ namespace AMST4.Carousel.MVC.Migrations
                 nullable: false,
                 defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
+            migrationBuilder.AddColumn<string>(
+                name: "Name",
+                table: "Category",
+                type: "TEXT",
+                nullable: false,
+                defaultValue: "");
+
             migrationBuilder.CreateTable(
                 name: "Product",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
                     Description = table.Column<string>(type: "TEXT", nullable: false),
                     ImageUrl = table.Column<string>(type: "TEXT", nullable: false),
                     IsActive = table.Column<bool>(type: "INTEGER", nullable: false),
                     Category_Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    CreatedBy = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -54,6 +62,10 @@ namespace AMST4.Carousel.MVC.Migrations
 
             migrationBuilder.DropColumn(
                 name: "CreatedAt",
+                table: "Category");
+
+            migrationBuilder.DropColumn(
+                name: "Name",
                 table: "Category");
         }
     }
