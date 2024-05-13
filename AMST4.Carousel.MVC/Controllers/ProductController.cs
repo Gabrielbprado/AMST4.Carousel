@@ -29,20 +29,6 @@ public class ProductController : Controller
         return View(product);
     }
 
-    [HttpPost]
-   
-   
-    public async Task<IActionResult> AddProduct(Product product)
-    {
-        
-       var category = await _context.Category.FindAsync(product.Category_Id);
-       product.Id = Guid.NewGuid();
-       _context.Add(product);
-       await _context.SaveChangesAsync();
-       return RedirectToAction(nameof(ProductList)); 
-    }
-
-
     [HttpGet]
     public IActionResult AddProduct()
     {
@@ -51,6 +37,34 @@ public class ProductController : Controller
         ViewBag.CategoryList = new SelectList(_context.Category, "Id", "Description");
         return View();
     }
+    [HttpPost]
+    public async Task<IActionResult> AddProduct(Product product, IFormFile image)
+    {
+
+
+        var fileName = Guid.NewGuid().ToString() + Path.GetExtension(image.FileName);
+        var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images","Product" ,fileName);
+
+        using (var stream = new FileStream(filePath, FileMode.Create))
+        {
+            await image.CopyToAsync(stream);
+        }
+        var UrlImage = Path.Combine("images", "Product", fileName);
+        
+
+        product.Id = Guid.NewGuid();
+        product.ImageUrl = UrlImage;
+            _context.Add(product);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(ProductList));
+        
+
+       
+    }
+
+
+
 
     [HttpPost]
     public async Task<IActionResult> EditProduct(Product product)
