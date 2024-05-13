@@ -7,5 +7,5 @@ public abstract class BaseEntity
 {
     [Key]
     public Guid Id { get; set; }
-    public DateTime CreatedBy { get; set; } = DateTime.Now;
+    public DateTime CreatedAt { get; set; } = DateTime.Now;
 }

@@ -22,7 +22,7 @@
                 @Html.DisplayNameFor(model => model.IsActive)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CreatedBy)
+                @Html.DisplayNameFor(model => model.CreatedAt)
             </th>
             <th></th>
         </tr>
@@ -40,7 +40,7 @@
                 @Html.DisplayFor(modelItem => item.IsActive)
             </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CreatedBy)
+                    @Html.DisplayFor(modelItem => item.CreatedAt)
                 </td>
             <td>
                     <a asp-controller="Category" asp-action="EditCategory" asp-route-id="@item.Id">Editar</a> |

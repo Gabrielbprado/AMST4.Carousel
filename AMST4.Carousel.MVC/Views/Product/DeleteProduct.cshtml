@@ -1,0 +1,43 @@
+﻿@model Product
+
+@{
+    ViewData["Title"] = "Deletar produto";
+}
+
+<div class="container bg-dark p-5 rounded-5">
+
+    <div class="mb-5 text-center">
+        <h1 class="text-light">Deletar Produto</h1>
+    </div>
+
+    <form method="post" asp-controller="Product" asp-action="DeleteProduct">
+        <input type="hidden" asp-for="Id" />
+        <h2 class="text-danger text-center">Tem Certeza Que Deseja Excluir esse Produto?</h2>
+        <div class="mb-3">
+            <label for="Description" class="form-label text-light">Descrição</label>
+            <input type="text" class="form-control" id="Description" placeholder="Description" asp-for="Description" disabled>
+            <span asp-validation-for="Description" class="text-danger"></span>
+
+        </div>
+        <div class="mb-3">
+            <label for="IsActive" class="form-label text-light">Esta Ativa ?</label>
+            <input type="text" class="form-control" id="IsActive" placeholder="IsActive" asp-for="IsActive" disabled>
+            <span asp-validation-for="IsActive" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label text-light" for="Livro">Imagem</label>
+            <input type="text" class="form-control" id="ImageUrl" placeholder="ImageUrl" asp-for="ImageUrl" disabled>
+            <span asp-validation-for="ImageUrl" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label text-light" for="Livro">Categoria</label>
+            <input type="text" class="form-control" id="Category" placeholder="ImageUrl" asp-for="Category" disabled>
+            <span asp-validation-for="Category" class="text-danger"></span>
+        </div>
+
+        <div class="d-flex gap-5 mt-5">
+            <button type="submit" class="btn btn-danger w-50">Deletar</button>
+            <a class="btn btn-primary w-50" asp-controller="Category" asp-action="CategoryList">Cancelar</a>
+        </div>
+    </form>
+</div>

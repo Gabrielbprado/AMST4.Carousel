@@ -26,7 +26,7 @@ namespace AMST4.Carousel.MVC.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("CreatedBy")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
@@ -54,7 +54,7 @@ namespace AMST4.Carousel.MVC.Migrations
                     b.Property<Guid>("Category_Id")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("CreatedBy")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Description")

@@ -22,6 +22,13 @@ public class ProductController : Controller
         return View(products);
     }
 
+    [HttpGet]
+    public async Task<IActionResult> ProductDetails(Guid id)
+    {
+        Product product = await _context.Product.Include(p => p.Category).FirstOrDefaultAsync(x => x.Id == id);
+        return View(product);
+    }
+
     [HttpPost]
    
    
@@ -41,6 +48,61 @@ public class ProductController : Controller
     {
         var hasCategories = _context.Category.Any();
         ViewBag.HasCategories = hasCategories;
+        ViewBag.CategoryList = new SelectList(_context.Category, "Id", "Description");
+        return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> EditProduct(Product product)
+    {
+        _context.Product.Update(product);
+        await _context.SaveChangesAsync();
+        return RedirectToAction(nameof(ProductList));
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> EditProduct(Guid id)
+    {
+        Product product = await _context.Product.FirstOrDefaultAsync(x => x.Id == id);
+        return View(product);
+    }
+
+    [HttpPost]
+
+    public async Task<IActionResult> DeleteProduct(Product product)
+    {
+       
+    
+        if (product == null)
+        {
+            return NotFound();
+        }
+        _context.Product.Remove(product);
+        await _context.SaveChangesAsync();
+        return RedirectToAction(nameof(ProductList));
+    }
+
+    [HttpGet]
+
+
+    public async Task<IActionResult> DeleteProduct(Guid id)
+    {
+       var product = await _context.Product.FirstOrDefaultAsync(x => x.Id == id);
+       return View(product);
+    }
+
+
+    [HttpGet]
+    public async Task<IActionResult> ProductListByCategory(Guid id)
+    {
+        List<Product> products = await _context.Product.Include(p => p.Category).Where(x => x.Category_Id == id).ToListAsync();
+        return View(products);
+    }
+
+    [HttpGet]
+
+    public async Task<IActionResult> ProductListByCategory()
+    {
         ViewBag.CategoryList = new SelectList(_context.Category, "Id", "Description");
         return View();
     }

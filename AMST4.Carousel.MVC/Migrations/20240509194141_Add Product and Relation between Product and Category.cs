@@ -12,7 +12,7 @@ namespace AMST4.Carousel.MVC.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<DateTime>(
-                name: "CreatedBy",
+                name: "CreatedAt",
                 table: "Category",
                 type: "TEXT",
                 nullable: false,
@@ -53,7 +53,7 @@ namespace AMST4.Carousel.MVC.Migrations
                 name: "Product");
 
             migrationBuilder.DropColumn(
-                name: "CreatedBy",
+                name: "CreatedAt",
                 table: "Category");
         }
     }
