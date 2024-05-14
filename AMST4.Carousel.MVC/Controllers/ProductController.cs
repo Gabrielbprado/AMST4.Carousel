@@ -43,50 +43,81 @@ public class ProductController : Controller
 
 
         var fileName = Guid.NewGuid().ToString() + Path.GetExtension(image.FileName);
-        var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images","Product" ,fileName);
+        var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "Product", fileName);
 
         using (var stream = new FileStream(filePath, FileMode.Create))
         {
             await image.CopyToAsync(stream);
         }
         var UrlImage = Path.Combine("images", "Product", fileName);
-        
+
 
         product.Id = Guid.NewGuid();
         product.ImageUrl = UrlImage;
-            _context.Add(product);
-            await _context.SaveChangesAsync();
-
-            return RedirectToAction(nameof(ProductList));
-        
-
-       
-    }
-
-
-
-
-    [HttpPost]
-    public async Task<IActionResult> EditProduct(Product product)
-    {
-        _context.Product.Update(product);
+        _context.Add(product);
         await _context.SaveChangesAsync();
-        return RedirectToAction(nameof(ProductList));
-    }
 
+        return RedirectToAction(nameof(ProductList));
+
+
+
+    }
     [HttpGet]
     public async Task<IActionResult> EditProduct(Guid id)
     {
         Product product = await _context.Product.FirstOrDefaultAsync(x => x.Id == id);
+        ViewBag.CategoryList = new SelectList(_context.Category, "Id", "Description");
         return View(product);
     }
+    [HttpPost]
+
+    public async Task<IActionResult> EditProduct(Guid id, Product product, IFormFile image)
+    {
+        if (id != product.Id)
+        {
+            return NotFound();
+        }
+
+
+
+        var fileName = Guid.NewGuid().ToString() + Path.GetExtension(image.FileName);
+        var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "Product", fileName);
+
+        using (var stream = new FileStream(filePath, FileMode.Create))
+        {
+            await image.CopyToAsync(stream);
+        }
+        var UrlImage = Path.Combine("images", "Product", fileName);
+
+        if (!string.IsNullOrEmpty(product.ImageUrl))
+        {
+            var oldImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "Product", product.ImageUrl);
+            if (System.IO.File.Exists(oldImagePath))
+            {
+                System.IO.File.Delete(oldImagePath);
+            }
+        }
+
+        product.ImageUrl = UrlImage;
+
+
+        _context.Update(product);
+        await _context.SaveChangesAsync();
+        return RedirectToAction(nameof(ProductList));
+
+
+    }
+
+
+
+
 
     [HttpPost]
 
     public async Task<IActionResult> DeleteProduct(Product product)
     {
-       
-    
+
+
         if (product == null)
         {
             return NotFound();
@@ -101,8 +132,8 @@ public class ProductController : Controller
 
     public async Task<IActionResult> DeleteProduct(Guid id)
     {
-       var product = await _context.Product.FirstOrDefaultAsync(x => x.Id == id);
-       return View(product);
+        var product = await _context.Product.FirstOrDefaultAsync(x => x.Id == id);
+        return View(product);
     }
 
 
@@ -115,7 +146,7 @@ public class ProductController : Controller
 
     [HttpGet]
 
-    public async Task<IActionResult> ProductListByCategory()
+    public IActionResult ProductListByCategory()
     {
         ViewBag.CategoryList = new SelectList(_context.Category, "Id", "Description");
         return View();
