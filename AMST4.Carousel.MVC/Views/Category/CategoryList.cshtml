@@ -20,7 +20,6 @@
                 @Html.DisplayNameFor(model => model.IsActive)
             </th>
            
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -34,7 +33,9 @@
                 @Html.DisplayFor(modelItem => item.IsActive)
             </td>
                 
+                
             <td>
+                    <a asp-controller="Product" asp-action="ProductListByCategory" asp-route-categoryId="@item.Id" class="btn btn-primary">Ver Produtos</a>
                     <a asp-controller="Category" asp-action="EditCategory" asp-route-id="@item.Id">Editar</a> |
                     <a asp-controller="Category" asp-action="CategoryDetails" asp-route-id="@item.Id">Detalhes</a> |
                     <a asp-controller="Category" asp-action="DeleteCategory" asp-route-id="@item.Id">Deletar</a>

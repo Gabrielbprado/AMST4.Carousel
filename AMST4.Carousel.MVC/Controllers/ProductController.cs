@@ -34,7 +34,7 @@ public class ProductController : Controller
     {
         var hasCategories = _context.Category.Any();
         ViewBag.HasCategories = hasCategories;
-        ViewBag.CategoryList = new SelectList(_context.Category, "Id", "Description");
+        ViewBag.CategoryList = new SelectList(_context.Category, "Id", "Name");
         return View();
     }
     [HttpPost]
@@ -66,7 +66,7 @@ public class ProductController : Controller
     public async Task<IActionResult> EditProduct(Guid id)
     {
         Product product = await _context.Product.FirstOrDefaultAsync(x => x.Id == id);
-        ViewBag.CategoryList = new SelectList(_context.Category, "Id", "Description");
+        ViewBag.CategoryList = new SelectList(_context.Category, "Id", "Name");
         return View(product);
     }
     [HttpPost]
@@ -132,24 +132,30 @@ public class ProductController : Controller
 
     public async Task<IActionResult> DeleteProduct(Guid id)
     {
-        var product = await _context.Product.FirstOrDefaultAsync(x => x.Id == id);
+        var product = await _context.Product.Include(p => p.Category).FirstOrDefaultAsync(x => x.Id == id); 
         return View(product);
     }
 
 
     [HttpGet]
-    public async Task<IActionResult> ProductListByCategory(Guid id)
+    public async Task<IActionResult> ProductListByCategory(Guid? categoryId)
     {
-        List<Product> products = await _context.Product.Include(p => p.Category).Where(x => x.Category_Id == id).ToListAsync();
+        if (categoryId == null)
+        {
+            return View(new List<Product>());
+        }
+
+        var products = await _context.Product
+                                    .Include(p => p.Category)
+                                    .Where(p => p.Category_Id == categoryId)
+                                    .ToListAsync();
+
+        ViewBag.CategoryList = new SelectList(_context.Category, "Id", "Name");
+        ViewBag.SelectedCategory = categoryId;
+
         return View(products);
     }
 
-    [HttpGet]
-
-    public IActionResult ProductListByCategory()
-    {
-        ViewBag.CategoryList = new SelectList(_context.Category, "Id", "Description");
-        return View();
-    }
+   
 
 }

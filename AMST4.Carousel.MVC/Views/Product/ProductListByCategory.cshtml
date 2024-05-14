@@ -1,0 +1,52 @@
+﻿@model IEnumerable<AMST4.Carousel.MVC.Models.Product>
+
+@{
+    ViewData["Title"] = "Product List by Category";
+}
+
+<h1>Lista de Produtos por Categoria</h1>
+
+<form method="get" asp-action="ProductListByCategory">
+    <div class="form-group">
+        <label for="categoryId">Categoria</label>
+        <select id="categoryId" name="categoryId" class="form-control" asp-items="ViewBag.CategoryList">
+            <option value="">Selecione uma Categoria</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Filtrar</button>
+</form>
+
+<hr />
+
+@if (Model.Any())
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Imagem</th>
+                <th>Ativo</th>
+                <th>Categoria</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model)
+            {
+                <tr>
+                    <td>@product.Name</td>
+                    <td>@product.Description</td>
+                    <td>
+                        <img src="~/@product.ImageUrl" alt="Imagem do Produto" class="img-fluid" style="max-width: 100px;" />
+                    </td>
+                    <td>@product.IsActive</td>
+                    <td>@product.Category.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Nenhum produto encontrado para a categoria selecionada.</p>
+}

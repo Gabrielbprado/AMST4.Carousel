@@ -1,4 +1,4 @@
-﻿@model Product
+﻿@model AMST4.Carousel.MVC.Models.Product
 
 @{
     ViewData["Title"] = "Deletar produto";
@@ -17,32 +17,31 @@
             <label for="Name" class="form-label text-light">Nome</label>
             <input type="text" class="form-control" id="Name" placeholder="Name" asp-for="Name" disabled>
             <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
+        </div>
         <div class="mb-3">
             <label for="Description" class="form-label text-light">Descrição</label>
             <input type="text" class="form-control" id="Description" placeholder="Description" asp-for="Description" disabled>
             <span asp-validation-for="Description" class="text-danger"></span>
-
         </div>
         <div class="mb-3">
-            <label for="IsActive" class="form-label text-light">Esta Ativa ?</label>
+            <label for="IsActive" class="form-label text-light">Está Ativo?</label>
             <input type="text" class="form-control" id="IsActive" placeholder="IsActive" asp-for="IsActive" disabled>
             <span asp-validation-for="IsActive" class="text-danger"></span>
         </div>
         <div class="mb-3">
-            <label class="form-label text-light" for="Livro">Imagem</label>
+            <label class="form-label text-light" for="ImageUrl">Imagem</label>
             <input type="text" class="form-control" id="ImageUrl" placeholder="ImageUrl" asp-for="ImageUrl" disabled>
             <span asp-validation-for="ImageUrl" class="text-danger"></span>
         </div>
         <div class="mb-3">
-            <label class="form-label text-light" for="Livro">Categoria</label>
-            <input type="text" class="form-control" id="Category" placeholder="ImageUrl" asp-for="Category" disabled>
-            <span asp-validation-for="Category" class="text-danger"></span>
+            <label class="form-label text-light" for="Category">Categoria</label>
+            <input type="text" class="form-control" id="Category" placeholder="Category" value="@Model.Category.Description" disabled>
+            <span asp-validation-for="Category.Description" class="text-danger"></span>
         </div>
 
         <div class="d-flex gap-5 mt-5">
             <button type="submit" class="btn btn-danger w-50">Deletar</button>
-            <a class="btn btn-primary w-50" asp-controller="Category" asp-action="CategoryList">Cancelar</a>
+            <a class="btn btn-primary w-50" asp-controller="Product" asp-action="ProductList">Cancelar</a>
         </div>
     </form>
 </div>
