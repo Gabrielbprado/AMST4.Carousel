@@ -29,6 +29,12 @@ app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
     endpoints.CreateApplicationBuilder();
+    endpoints.MapControllerRoute(
+    name: "confirmDeleteCategory",
+    pattern: "Category/ConfirmDelete/{id?}",
+    defaults: new { controller = "Category", action = "ConfirmDeleteCategory" }
+);
+
 });
 
 app.MapControllerRoute(

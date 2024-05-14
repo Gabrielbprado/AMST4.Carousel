@@ -1,6 +1,7 @@
 ﻿using AMST4.Carousel.MVC.Data;
 using AMST4.Carousel.MVC.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AMST4.Carousel.MVC.Controllers;
 
@@ -29,9 +30,20 @@ public class CategoryController : Controller
     
 
     [HttpPost]
-    public async Task<IActionResult> AddCategory(Category category)
+    public async Task<IActionResult> AddCategory(Category category, IFormFile image)
     {
+
+
+        var fileName = Guid.NewGuid().ToString() + Path.GetExtension(image.FileName);
+        var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "Category", fileName);
+
+        using (var stream = new FileStream(filePath, FileMode.Create))
+        {
+            await image.CopyToAsync(stream);
+        }
+        var UrlImage = Path.Combine("images", "Category", fileName);
         category.Id = new Guid();
+        category.ImageUrl = UrlImage;
         await _context.Category.AddAsync(category);
         await _context.SaveChangesAsync();
         return RedirectToAction("CategoryList");
@@ -44,9 +56,17 @@ public class CategoryController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> EditCategory(Category category)
+    public async Task<IActionResult> EditCategory(Category category, IFormFile image)
     {
-         _context.Category.Update(category);
+        var fileName = Guid.NewGuid().ToString() + Path.GetExtension(image.FileName);
+        var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "Category", fileName);
+
+        using (var stream = new FileStream(filePath, FileMode.Create))
+        {
+            await image.CopyToAsync(stream);
+        }
+        var UrlImage = Path.Combine("images", "Category", fileName);
+        _context.Category.Update(category);
         await _context.SaveChangesAsync();
         return RedirectToAction("CategoryList");
     }
@@ -67,16 +87,27 @@ public class CategoryController : Controller
     }
 
     [HttpPost]
+    [HttpPost]
     public async Task<IActionResult> DeleteCategory(Category category)
     {
-        if(category == null)
+        if (category == null)
         {
             return NotFound();
         }
+
+        var productsInCategory = await _context.Product.AnyAsync(p => p.Category_Id == category.Id);
+        if (productsInCategory)
+        {
+            ViewBag.HasProducts = true;
+            ViewBag.CategoryName = category.Name;
+            return View("ConfirmDeleteCategory", category);
+        }
+
         _context.Category.Remove(category);
         await _context.SaveChangesAsync();
         return RedirectToAction("CategoryList");
     }
+
 
     [HttpGet]
     public async Task<IActionResult> DeleteCategory(Guid id)
@@ -86,6 +117,9 @@ public class CategoryController : Controller
             return NotFound();
         }
         var category = await _context.Category.FindAsync(id);
+       
         return View(category);
     }
+
+
 }

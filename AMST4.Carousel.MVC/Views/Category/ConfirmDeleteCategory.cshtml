@@ -1,0 +1,16 @@
+﻿@model AMST4.Carousel.MVC.Models.Category
+
+@{
+    ViewData["Title"] = "Confirmar Exclusão de Categoria";
+}
+
+<h1>Confirmar Exclusão de Categoria</h1>
+
+<p>Existem produtos associados à categoria "@ViewBag.CategoryName".</p>
+<p>Você tem certeza que deseja excluir essa categoria e todos os produtos associados?</p>
+
+<form method="post" asp-controller="Category" asp-action="DeleteConfirmed">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Sim, Excluir</button>
+    <a href="@Url.Action("CategoryList", "Category")" class="btn btn-primary">Cancelar</a>
+</form>
