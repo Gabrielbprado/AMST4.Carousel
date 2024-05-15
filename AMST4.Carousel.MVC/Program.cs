@@ -30,9 +30,9 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.CreateApplicationBuilder();
     endpoints.MapControllerRoute(
-    name: "confirmDeleteCategory",
+    name: "DeleteCategoryWarning",
     pattern: "Category/ConfirmDelete/{id?}",
-    defaults: new { controller = "Category", action = "ConfirmDeleteCategory" }
+    defaults: new { controller = "Category", action = "DeleteCategoryWarning" }
 );
 
 });

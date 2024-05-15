@@ -108,10 +108,6 @@ public class ProductController : Controller
 
     }
 
-
-
-
-
     [HttpPost]
 
     public async Task<IActionResult> DeleteProduct(Product product)
@@ -132,7 +128,7 @@ public class ProductController : Controller
 
     public async Task<IActionResult> DeleteProduct(Guid id)
     {
-        var product = await _context.Product.Include(p => p.Category).FirstOrDefaultAsync(x => x.Id == id); 
+        var product = await _context.Product.Include(p => p.Category).FirstOrDefaultAsync(x => x.Id == id);
         return View(product);
     }
 
@@ -156,6 +152,6 @@ public class ProductController : Controller
         return View(products);
     }
 
-   
+
 
 }
