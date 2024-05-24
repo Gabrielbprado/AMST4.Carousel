@@ -1,0 +1,75 @@
+﻿@model AMST4.Carousel.MVC.Models.User
+
+@{
+    ViewData["Title"] = "Editar Usuário";
+}
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h2>Editar Usuário</h2>
+                </div>
+                <div class="card-body">
+                    <form asp-action="UserEdit" method="post" enctype="multipart/form-data">
+                        <input type="hidden" asp-for="Id" />
+                        <div class="text-center mb-4">
+                            <img src="@Model.ImageUrl" class="rounded-circle" alt="Foto do usuário" style="width: 150px; height: 150px;">
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="UserName" class="control-label"></label>
+                            <input asp-for="UserName" class="form-control" />
+                            <span asp-validation-for="UserName" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label asp-for="Adress" class="control-label"></label>
+                            <input asp-for="Adress" class="form-control" />
+                            <span asp-validation-for="Adress" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="City" class="control-label"></label>
+                            <input asp-for="City" class="form-control" />
+                            <span asp-validation-for="City" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ZipCode" class="control-label"></label>
+                            <input asp-for="ZipCode" class="form-control" />
+                            <span asp-validation-for="ZipCode" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Email" class="control-label"></label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ImageUrl" class="control-label"></label>
+                            <input asp-for="ImageUrl" class="form-control" />
+                            <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="IsActive" class="control-label"></label>
+                            <input asp-for="IsActive" class="form-control" type="checkbox" />
+                            <span asp-validation-for="IsActive" class="text-danger"></span>
+                        </div>
+                        <div class="form-group text-center">
+                            <input type="submit" value="Salvar" class="btn btn-primary btn-block" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
