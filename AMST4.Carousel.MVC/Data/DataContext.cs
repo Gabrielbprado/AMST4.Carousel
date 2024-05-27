@@ -9,4 +9,6 @@ public class DataContext(DbContextOptions<DataContext> opts) : IdentityDbContext
     public DbSet<Category> Category { get; set; }
     public DbSet<Product> Product { get; set; }
     public DbSet<User> User { get; set; }
+    public DbSet<Size> Size { get; set; }
+
 }
