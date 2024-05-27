@@ -103,6 +103,9 @@ public class CategoryController : Controller
             ViewBag.HasProducts = true;
             ViewBag.CategoryName = category.Name;
             return View("DeleteCategoryWarning", category);
+        } else
+        {
+            await DeleteCategoryConfirmed(id);
         }
 
         return RedirectToAction("CategoryList");

@@ -18,7 +18,7 @@ public class ProductController : Controller
     [HttpGet]
     public async Task<IActionResult> ProductList()
     {
-        List<Product> products = await _context.Product.Include(p => p.Category).ToListAsync();
+        List<Product> products = await _context.Product.Include(p => p.Category).Include(p => p.Size).ToListAsync();
         return View(products);
     }
 
@@ -33,8 +33,11 @@ public class ProductController : Controller
     public IActionResult AddProduct()
     {
         var hasCategories = _context.Category.Any();
+        var hasSizes = _context.Size.Any();
+        ViewBag.HasSizes = hasSizes;
         ViewBag.HasCategories = hasCategories;
         ViewBag.CategoryList = new SelectList(_context.Category, "Id", "Name");
+        ViewBag.SizeList = new SelectList(_context.Size, "Id", "Description");
         return View();
     }
     [HttpPost]
@@ -151,6 +154,8 @@ public class ProductController : Controller
 
         return View(products);
     }
+
+   
 
 
 

@@ -10,4 +10,7 @@ public class Product : BaseEntity
     [ForeignKey("Category")]
     public Guid Category_Id { get; set; }
     public virtual Category Category { get; set; }
+    [ForeignKey("Size")]
+    public Guid Size_Id { get; set; }
+    public virtual Size Size { get; set; }
 }
