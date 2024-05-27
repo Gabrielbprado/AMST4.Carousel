@@ -155,6 +155,26 @@ public class ProductController : Controller
         return View(products);
     }
 
+    [HttpGet]
+    public async Task<IActionResult> ProductListBySize(Guid? sizeId)
+    {
+        if (sizeId == null)
+        {
+            return View(new List<Product>());
+        }
+
+        var products = await _context.Product
+                                    .Include(p => p.Size)
+                                    .Where(p => p.Size_Id == sizeId)
+                                    .Include(p => p.Category)
+                                    .ToListAsync();
+
+        ViewBag.SizeList = new SelectList(_context.Size, "Id", "Description");
+        ViewBag.SelectedSize = sizeId;
+
+        return View(products);
+    }
+
    
 
 

@@ -112,6 +112,30 @@ public class SizeController : Controller
         return RedirectToAction(nameof(SizeList));
     }
 
+    [HttpPost]
+    public async Task<IActionResult> DeleteSizeWarning(Guid id)
+    {
+        var size = await _context.Size.FindAsync(id);
+        if (size == null)
+        {
+            return NotFound();
+        }
+
+        var hasProducts = await _context.Product.AnyAsync(p => p.Size_Id == size.Id);
+        if (hasProducts)
+        {
+            ViewBag.HasProducts = true;
+            ViewBag.SizeName = size.Description;
+            return View("DeleteSizeWarning", size);
+        }
+        else
+        {
+            await DeleteSizeConfirmed(id);
+        }
+
+        return RedirectToAction("CategoryList");
+    }
+
     private bool SizeExists(Guid id)
     {
         return _context.Size.Any(e => e.Id == id);
