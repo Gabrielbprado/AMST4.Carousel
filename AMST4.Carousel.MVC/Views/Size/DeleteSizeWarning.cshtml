@@ -1,0 +1,16 @@
+﻿@model Size
+
+@{
+    ViewData["Title"] = "Confirmar Exclusão de Categoria";
+}
+
+<h1>Confirmar Exclusão do Tamanho</h1>
+
+<p>Existem produtos associados ào Tamanho"@ViewBag.SizeDescription".</p>
+<p>Você tem certeza que deseja excluir esse tamanho e todos os produtos associados?</p>
+
+<form method="post" asp-controller="Size" asp-action="DeleteSizeConfirmed">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Sim, Excluir</button>
+    <a href="@Url.Action("SizeList", "Size")" class="btn btn-primary">Cancelar</a>
+</form>

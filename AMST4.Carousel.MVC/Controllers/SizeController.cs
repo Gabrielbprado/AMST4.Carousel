@@ -125,7 +125,7 @@ public class SizeController : Controller
         if (hasProducts)
         {
             ViewBag.HasProducts = true;
-            ViewBag.SizeName = size.Description;
+            ViewBag.SizeDescription = size.Description;
             return View("DeleteSizeWarning", size);
         }
         else

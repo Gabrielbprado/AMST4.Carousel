@@ -44,7 +44,8 @@ public class ProductController : Controller
     public async Task<IActionResult> AddProduct(Product product, IFormFile image)
     {
 
-
+        if(image != null)
+        {
         var fileName = Guid.NewGuid().ToString() + Path.GetExtension(image.FileName);
         var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "Product", fileName);
 
@@ -54,9 +55,9 @@ public class ProductController : Controller
         }
         var UrlImage = Path.Combine("images", "Product", fileName);
 
-
-        product.Id = Guid.NewGuid();
         product.ImageUrl = UrlImage;
+        }
+        product.Id = Guid.NewGuid();
         _context.Add(product);
         await _context.SaveChangesAsync();
 
