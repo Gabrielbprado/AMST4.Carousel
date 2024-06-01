@@ -4,55 +4,38 @@
     ViewData["Title"] = "ProductList";
 }
 
-<h1>Produtos Cadastrados</h1>
+<h1 class="my-4 text-center">Produtos Cadastrados</h1>
 
-<p>
+<div class="mb-4 text-right">
     <a asp-action="AddProduct" class="btn btn-success">Criar Novo Produto</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            
-            <th>
-                @Html.DisplayNameFor(model => model.IsActive)
-            </th>
-            <th>
-                Categoria
-            </th>
-            <th>
-                Tamanho
-            </th>
-           
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsActive)
-                </td>
-                <td>
-                    @item.Category.Name
-                </td>
-                <td>
-                    @item.Size.Description
-                </td>
-                
-                <td>
-                    <a asp-action="EditProduct" asp-route-id="@item.Id">Editar</a> |
-                    <a asp-action="ProductDetails" asp-route-id="@item.Id">Detalhes</a> |
-                    <a asp-action="DeleteProduct" asp-route-id="@item.Id">Deletar</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+</div>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h4 class="card-title">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </h4>
+                    <p class="card-text">
+                        <img width="50%" src="~/@item.ImageUrl"><br />
+                        <strong>Categoria:</strong> @item.Category.Description
+                        <a asp-controller="Product" asp-action="ProductListByCategory" asp-route-categoryId="@item.Category_Id"><img class="rounded-circle" width="10%" src="~/@item.Category.ImageUrl"></a><br />
+                        <strong>Tamanho:</strong> <a asp-controller="Product" asp-action="ProductListBySize" asp-route-sizeId="@item.Size_Id" class="text-primary">@item.Size.Description</a><br />
+                        @if(!item.IsActive)
+                        {
+                        <strong>Esgotado</strong> 
+                        }
+                    </p>
+                </div>
+                <div class="card-footer text-center">
+                    <a asp-action="EditProduct" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Editar</a>
+                    <a asp-action="ProductDetails" asp-route-id="@item.Id" class="btn btn-info btn-sm">Detalhes</a>
+                    <a asp-action="DeleteProduct" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Deletar</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

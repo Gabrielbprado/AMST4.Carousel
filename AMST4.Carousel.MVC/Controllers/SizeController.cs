@@ -81,6 +81,7 @@ public class SizeController : Controller
         return RedirectToAction(nameof(SizeList));
 
     }
+    [HttpGet]
 
     public async Task<IActionResult> DeleteSize(Guid? id)
     {
@@ -133,7 +134,7 @@ public class SizeController : Controller
             await DeleteSizeConfirmed(id);
         }
 
-        return RedirectToAction("CategoryList");
+        return RedirectToAction("SizeList");
     }
 
     private bool SizeExists(Guid id)

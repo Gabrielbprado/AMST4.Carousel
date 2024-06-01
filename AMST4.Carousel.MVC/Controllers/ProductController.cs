@@ -25,7 +25,7 @@ public class ProductController : Controller
     [HttpGet]
     public async Task<IActionResult> ProductDetails(Guid id)
     {
-        Product product = await _context.Product.Include(p => p.Category).FirstOrDefaultAsync(x => x.Id == id);
+        Product product = await _context.Product.Include(p => p.Category).Include(p => p.Size).FirstOrDefaultAsync(x => x.Id == id);
         return View(product);
     }
 
@@ -36,7 +36,7 @@ public class ProductController : Controller
         var hasSizes = _context.Size.Any();
         ViewBag.HasSizes = hasSizes;
         ViewBag.HasCategories = hasCategories;
-        ViewBag.CategoryList = new SelectList(_context.Category, "Id", "Name");
+        ViewBag.CategoryList = new SelectList(_context.Category, "Id", "Description");
         ViewBag.SizeList = new SelectList(_context.Size, "Id", "Description");
         return View();
     }
@@ -44,19 +44,26 @@ public class ProductController : Controller
     public async Task<IActionResult> AddProduct(Product product, IFormFile image)
     {
 
-        if(image != null)
+        if (image != null)
         {
-        var fileName = Guid.NewGuid().ToString() + Path.GetExtension(image.FileName);
-        var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "Product", fileName);
+            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(image.FileName);
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "Product", fileName);
 
-        using (var stream = new FileStream(filePath, FileMode.Create))
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await image.CopyToAsync(stream);
+            }
+            var UrlImage = Path.Combine("images", "Product", fileName);
+
+            product.ImageUrl = UrlImage;
+        }
+        else
         {
-            await image.CopyToAsync(stream);
-        }
-        var UrlImage = Path.Combine("images", "Product", fileName);
 
-        product.ImageUrl = UrlImage;
+        string urlDefault = "images/UnknowImage.jpg";
+        product.ImageUrl = urlDefault;
         }
+
         product.Id = Guid.NewGuid();
         _context.Add(product);
         await _context.SaveChangesAsync();
@@ -70,7 +77,7 @@ public class ProductController : Controller
     public async Task<IActionResult> EditProduct(Guid id)
     {
         Product product = await _context.Product.FirstOrDefaultAsync(x => x.Id == id);
-        ViewBag.CategoryList = new SelectList(_context.Category, "Id", "Name");
+        ViewBag.CategoryList = new SelectList(_context.Category, "Id", "Description");
         return View(product);
     }
     [HttpPost]
@@ -150,7 +157,7 @@ public class ProductController : Controller
                                     .Where(p => p.Category_Id == categoryId)
                                     .ToListAsync();
 
-        ViewBag.CategoryList = new SelectList(_context.Category, "Id", "Name");
+        ViewBag.CategoryList = new SelectList(_context.Category, "Id", "Description");
         ViewBag.SelectedCategory = categoryId;
 
         return View(products);
@@ -176,7 +183,7 @@ public class ProductController : Controller
         return View(products);
     }
 
-   
+
 
 
 

@@ -9,8 +9,12 @@ public class Product : BaseEntity
     public string ImageUrl { get; set; } = string.Empty;
     [ForeignKey("Category")]
     public Guid Category_Id { get; set; }
-    public virtual Category Category { get; set; }
+    public virtual Category Category { get; set; } 
     [ForeignKey("Size")]
     public Guid Size_Id { get; set; }
     public virtual Size Size { get; set; }
+    public decimal Price { get; set; }
+    public double Stock { get; set; }
+    
+
 }

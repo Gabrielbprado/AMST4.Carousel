@@ -12,11 +12,7 @@
     <form method="post" asp-controller="Category" asp-action="DeleteCategoryWarning">
         <input type="hidden" asp-for="Id" />
         <h2 class="text-danger text-center">Tem certeza que deseja excluir esta categoria?</h2>
-        <div class="mb-3">
-            <label for="Name" class="form-label text-light">Nome</label>
-            <input type="text" class="form-control" id="Name" placeholder="Name" asp-for="Name" disabled>
-            <span asp-validation-for="Name" class="text-danger"></span>
-        </div>
+       
         <div class="mb-3">
             <label for="Description" class="form-label text-light">Descrição</label>
             <input type="text" class="form-control" id="Description" placeholder="Description" asp-for="Description" disabled>

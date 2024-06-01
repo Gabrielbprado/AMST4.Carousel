@@ -30,7 +30,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label text-light" for="ImageUrl">Imagem</label>
-            <input type="text" class="form-control" id="ImageUrl" placeholder="ImageUrl" asp-for="ImageUrl" disabled>
+            <img src="~/@Model.ImageUrl" alt="Imagem do Produto" class="img-fluid"/>
             <span asp-validation-for="ImageUrl" class="text-danger"></span>
         </div>
         <div class="mb-3">
@@ -38,6 +38,12 @@
             <input type="text" class="form-control" id="Category" placeholder="Category" value="@Model.Category.Description" disabled>
             <span asp-validation-for="Category.Description" class="text-danger"></span>
         </div>
+        <div class="mb-3">
+            <label class="form-label text-light" for="Size">Tamanho</label>
+            <input type="text" class="form-control" id="Size" placeholder="Tamanho" value="@Model.Size.Description" disabled>
+            <span asp-validation-for="Size.Description" class="text-danger"></span>
+        </div>
+
 
         <div class="d-flex gap-5 mt-5">
             <button type="submit" class="btn btn-danger w-50">Deletar</button>

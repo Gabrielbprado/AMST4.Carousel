@@ -101,7 +101,7 @@ public class CategoryController : Controller
         if (hasProducts)
         {
             ViewBag.HasProducts = true;
-            ViewBag.CategoryName = category.Name;
+            ViewBag.CategoryName = category.Description;
             return View("DeleteCategoryWarning", category);
         } else
         {

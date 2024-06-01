@@ -1,21 +1,16 @@
 ﻿@model AMST4.Carousel.MVC.Models.Category
 
 @{
-    ViewData["Title"] = "ProductDetails";
+    ViewData["Title"] = "CategoryDetails";
 }
 
-<h1>Detalhes do Produto</h1>
+<h1>Detalhes da Categoria</h1>
 
 <div class="container mt-4">
     <h4>Produto</h4>
     <hr />
     <dl class="row">
-        <dt class="col-sm-3">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class="col-sm-9">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+       
 
         <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.Description)
