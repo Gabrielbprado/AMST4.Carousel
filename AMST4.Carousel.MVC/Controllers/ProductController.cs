@@ -1,4 +1,5 @@
 ﻿using AMST4.Carousel.MVC.Data;
+using AMST4.Carousel.MVC.Helper;
 using AMST4.Carousel.MVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -46,16 +47,8 @@ public class ProductController : Controller
 
         if (image != null)
         {
-            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(image.FileName);
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "Product", fileName);
-
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                await image.CopyToAsync(stream);
-            }
-            var UrlImage = Path.Combine("images", "Product", fileName);
-
-            product.ImageUrl = UrlImage;
+            var folderName = "Product";
+            product.ImageUrl = await ImageHelper.SaveImageAsync(image, folderName);
         }
         else
         {
@@ -91,14 +84,11 @@ public class ProductController : Controller
 
 
 
-        var fileName = Guid.NewGuid().ToString() + Path.GetExtension(image.FileName);
-        var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "Product", fileName);
-
-        using (var stream = new FileStream(filePath, FileMode.Create))
+        if (image != null)
         {
-            await image.CopyToAsync(stream);
+            var folderName = "Product";
+            product.ImageUrl = await ImageHelper.SaveImageAsync(image, folderName);
         }
-        var UrlImage = Path.Combine("images", "Product", fileName);
 
         if (!string.IsNullOrEmpty(product.ImageUrl))
         {
@@ -109,7 +99,6 @@ public class ProductController : Controller
             }
         }
 
-        product.ImageUrl = UrlImage;
 
 
         _context.Update(product);

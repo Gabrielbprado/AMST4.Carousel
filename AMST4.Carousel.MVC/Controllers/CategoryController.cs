@@ -1,4 +1,5 @@
 ﻿using AMST4.Carousel.MVC.Data;
+using AMST4.Carousel.MVC.Helper;
 using AMST4.Carousel.MVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -33,15 +34,8 @@ public class CategoryController : Controller
     {
         if (image != null)
         {
-            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(image.FileName);
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "Category", fileName);
-
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                await image.CopyToAsync(stream);
-            }
-
-            category.ImageUrl = Path.Combine("images", "Category", fileName);
+            var folderName = "Category";
+            category.ImageUrl = await ImageHelper.SaveImageAsync(image, folderName);
         }
 
         category.Id = Guid.NewGuid();
@@ -61,15 +55,8 @@ public class CategoryController : Controller
     {
         if (image != null)
         {
-            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(image.FileName);
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "Category", fileName);
-
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                await image.CopyToAsync(stream);
-            }
-
-            category.ImageUrl = Path.Combine("images", "Category", fileName);
+            var folderName = "Category";
+            category.ImageUrl = await ImageHelper.SaveImageAsync(image, folderName);
         }
 
         _context.Category.Update(category);
