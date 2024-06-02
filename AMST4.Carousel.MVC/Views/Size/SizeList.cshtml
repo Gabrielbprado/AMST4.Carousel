@@ -1,38 +1,31 @@
 ﻿@model IEnumerable<AMST4.Carousel.MVC.Models.Size>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Tamanhos Disponíveis";
 }
 
-<h1>Tamanhos Cadastrados</h1>
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Tamanhos Cadastrados</h2>
+    <div class="text-right mb-3">
+        <a asp-action="AddSize" class="btn btn-outline-success btn-lg">+ Adicionar Tamanho</a>
+    </div>
 
-<p>
-    <a asp-action="AddSize">Criar Novo</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Descrição
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
+    <div class="row">
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-
-                <td>
-                    <a asp-controller="Product" asp-action="ProductListBySize" asp-route-sizeId="@item.Id" class="btn btn-primary">Ver Produtos</a> |
-                    <a asp-action="EditSize" asp-route-id="@item.Id">Editar</a> |
-                    <a asp-action="SizeDetails" asp-route-id="@item.Id">Ver Mais</a> |
-                    <a asp-action="DeleteSize" asp-route-id="@item.Id">Deletar</a>
-                </td>
-            </tr>
+            <div class="col-md-4 mb-3">
+                <div class="card border-0 shadow">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">@Html.DisplayFor(modelItem => item.Description)</h5>
+                        <div class="text-center">
+                            <a asp-controller="Product" asp-action="ProductListBySize" asp-route-sizeId="@item.Id" class="btn btn-primary">Ver Produtos</a>
+                            <a asp-action="EditSize" asp-route-id="@item.Id" class="btn btn-outline-secondary btn-sm">Editar</a>
+                            <a asp-action="SizeDetails" asp-route-id="@item.Id" class="btn btn-outline-info btn-sm">Detalhes</a>
+                            <a asp-action="DeleteSize" asp-route-id="@item.Id" class="btn btn-outline-danger btn-sm">Deletar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         }
-    </tbody>
-</table>
+    </div>
+</div>

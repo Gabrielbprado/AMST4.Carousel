@@ -1,34 +1,33 @@
 ﻿@model AMST4.Carousel.MVC.Models.Size
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Adicionar Tamanho";
 }
 
-<h1>Adicionar Tamanho</h1>
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Adicionar Novo Tamanho</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form asp-action="AddSize" class="card p-4 shadow-sm" novalidate>
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
 
-<h4>Tamanho</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="AddSize">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-         
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label">Descrição do Tamanho</label>
+                    <input asp-for="Description" class="form-control" placeholder="Insira a descrição do tamanho" required />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-success">Criar Tamanho</button>
+                    <a asp-action="SizeList" class="btn btn-outline-danger">Cancelar</a>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="SizeList">Voltar</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

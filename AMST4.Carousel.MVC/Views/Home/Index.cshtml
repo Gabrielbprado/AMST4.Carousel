@@ -4,9 +4,15 @@
 
 <partial name="_Carousel" />
 
-<div class="container">
-    <div class="row">
-        <div class="col text-center">
-            <h1 class="display-4">BEM VINDO(A) à Loja Power Sapatos</h1>
-        </div>
-    </div>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+
+<div class="text-center my-5">
+    <h1>Ben Vindo(a) ao Power Sapatos</h1>
+    <p>A Melhor loja de Sapatos online</p>
+    <a asp-controller="Product" asp-action="ProductList" class="btn btn-primary btn-lg">Ver Produtos</a>
+</div>
+

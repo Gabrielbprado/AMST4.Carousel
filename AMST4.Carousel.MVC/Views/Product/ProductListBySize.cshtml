@@ -1,54 +1,58 @@
 ﻿@model IEnumerable<AMST4.Carousel.MVC.Models.Product>
 
 @{
-    ViewData["Title"] = "Product List by Size";
+    ViewData["Title"] = "Lista de Produtos por Tamanho";
 }
 
-<h1>Lista de Produtos por Tamanho</h1>
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Produtos por Tamanho</h2>
 
-<form method="get" asp-action="ProductListByCategory">
-    <div class="form-group">
-        <label for="sizeId">Tamanho</label>
-        <select id="sizeId" name="sizeId" class="form-control" asp-items="ViewBag.SizeList">
-            <option value="">Selecione um Tamanho</option>
-        </select>
-    </div>
-    <button type="submit" class="btn btn-primary">Filtrar</button>
-</form>
+    <form method="get" asp-action="ProductListBySize" class="mb-4">
+        <div class="form-group">
+            <label for="sizeId" class="form-label">Escolha um Tamanho</label>
+            <select id="sizeId" name="sizeId" class="form-select" asp-items="ViewBag.SizeList">
+                <option value="">Todos os Tamanhos</option>
+            </select>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-outline-primary btn-lg">Filtrar</button>
+        </div>
+    </form>
 
-<hr />
-
-@if (Model.Any())
-{
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Descrição</th>
-                <th>Imagem</th>
-                <th>Ativo</th>
-                <th>Categoria</th>
-            </tr>
-        </thead>
-        <tbody>
+    @if (Model.Any())
+    {
+        <div class="row row-cols-1 row-cols-md-3 g-4">
             @foreach (var product in Model)
             {
-                <tr>
-                    <td>@product.Name</td>
-                    <td>@product.Description</td>
-                    <td>
-                        <img src="~/@product.ImageUrl" alt="Imagem do Produto" class="img-fluid" style="max-width: 100px;" />
-                    </td>
-                    <td>@product.IsActive</td>
-                    <td>@product.Category.Description</td>
-                    <td>@product.Category.Description</td>
-
-                </tr>
+                <div class="col">
+                    <div class="card h-100">
+                        <img src="~/@product.ImageUrl" alt="@product.Name" class="card-img-top" style="max-height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">@product.Name</h5>
+                            <p class="card-text">@product.Description</p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">Categoria: @product.Category.Description</small>
+                            <div class="mt-2">
+                                @if (product.IsActive)
+                                {
+                                    
+                                    <span class="badge bg-@(product.IsActive ? "success" : "secondary")">Ativo</span>
+                                }else
+                                {
+                                    <span class="badge bg-@(product.IsActive ? "success" : "secondary")">Inativo</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
             }
-        </tbody>
-    </table>
-}
-else
-{
-    <p>Nenhum produto encontrado para o Tamanho Selecionado selecionada.</p>
-}
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center" role="alert">
+            Nenhum produto encontrado para o tamanho selecionado.
+        </div>
+    }
+</div>

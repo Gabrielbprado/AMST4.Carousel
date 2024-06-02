@@ -1,45 +1,34 @@
 ﻿@model IEnumerable<AMST4.Carousel.MVC.Models.Category>
 
 @{
-    ViewData["Title"] = "CategoryList";
+    ViewData["Title"] = "Lista de Categorias";
 }
 
-<h1>Categorias Cadastradas</h1>
+<div class="container my-5">
+    <h2 class="text-center mb-4">Categorias Disponíveis</h2>
+    <div class="text-right mb-3">
+        <a asp-action="AddCategory" class="btn btn-outline-success btn-lg">+ Nova Categoria</a>
+    </div>
 
-<p>
-    <a asp-action="AddCategory" class="btn btn-success">Criar Nova Categoria</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-
-            <th>
-                @Html.DisplayNameFor(model => model.IsActive)
-            </th>
-
-        </tr>
-    </thead>
-    <tbody>
+    <div class="row">
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsActive)
-                </td>
-                <td>
-                    <a asp-controller="Product" asp-action="ProductListByCategory" asp-route-categoryId="@item.Id" class="btn btn-primary">Ver Produtos</a>
-                    <a asp-controller="Category" asp-action="EditCategory" asp-route-id="@item.Id">Editar</a> |
-                    <a asp-controller="Category" asp-action="CategoryDetails" asp-route-id="@item.Id">Detalhes</a> |
-                    <a asp-controller="Category" asp-action="DeleteCategory" asp-route-id="@item.Id">Deletar</a>
-                </td>
-            </tr>
+            <div class="col-md-4 mb-3">
+                <div class="card border-0 shadow">
+                    <img src="~/@item.ImageUrl" alt="@item.Description" class="card-img-top rounded-circle">
+                    <div class="card-body">
+                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Description)</h5>
+                        <div class="text-center">
+                            <a asp-controller="Product" asp-action="ProductListByCategory" asp-route-categoryId="@item.Id" class="btn btn-primary">Ver Produtos</a>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <a asp-controller="Category" asp-action="EditCategory" asp-route-id="@item.Id" class="btn btn-outline-secondary btn-sm">Editar</a>
+                        <a asp-controller="Category" asp-action="CategoryDetails" asp-route-id="@item.Id" class="btn btn-outline-info btn-sm">Detalhes</a>
+                        <a asp-controller="Category" asp-action="DeleteCategory" asp-route-id="@item.Id" class="btn btn-outline-danger btn-sm">Deletar</a>
+                    </div>
+                </div>
+            </div>
         }
-    </tbody>
-</table>
+    </div>
+</div>
